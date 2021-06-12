@@ -17,12 +17,14 @@ const imgsApiService = new API();
 refs.searchForm.addEventListener('submit', onSearch);
 refs.loadMoreBtn.addEventListener('click', fetchGalleryImages);
 
+refs.loadMoreBtn.classList.add('is-hidden');
+
 function onSearch(e) {
   e.preventDefault();
 
-  imgsApiService.query = e.currentTarget.elements.query.value;
+  imgsApiService.query = e.currentTarget.elements.query.value.trim();
 
-  if (imgsApiService.searchQuery === '') {
+  if (imgsApiService.query === '') {
     onFetchError();
     return;
   }
@@ -33,16 +35,13 @@ function onSearch(e) {
 }
 
 function fetchGalleryImages() {
-  if (imgsApiService.searchQuery === '') {
-    onFetchError();
-    return;
-  }
-
-  refs.loadMoreBtn.disabled = true;
-
   imgsApiService.fetchImages().then(hits => {
     appendImgsMarkup(hits);
-    refs.loadMoreBtn.disabled = false;
+    refs.loadMoreBtn.classList.remove('is-hidden');
+
+    if (hits.length < 12) {
+      refs.loadMoreBtn.classList.add('is-hidden');
+    }
   });
 }
 
@@ -52,10 +51,6 @@ function appendImgsMarkup(hits) {
       text: 'Oops! Nothing is found! Try another query!',
     });
   }
-
-  // if (hits.length < 12) {
-  //   refs.loadMoreBtn.classList.add('is-hidden');
-  // }
 
   refs.galleryContainer.insertAdjacentHTML('beforeend', galleryImgTpl(hits));
 
