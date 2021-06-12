@@ -1,7 +1,6 @@
 import getRefs from './get-refs.js';
 import API from './apiService';
 import galleryImgTpl from '../templates/gallery-img.hbs';
-import modalImgTpl from '../templates/modal-img.hbs';
 
 import * as basicLightbox from 'basiclightbox';
 import * as PNotify from '@pnotify/core/dist/PNotify.js';
@@ -39,13 +38,14 @@ function fetchGalleryImages() {
     appendImgsMarkup(hits);
 
     // пытаюсь добавить lightbox image
-    refs.galleryContainer.addEventListener('click', onGalleryImgClick);
+    // refs.galleryContainer.addEventListener('click', onGalleryImgClick);
 
-    function onGalleryImgClick(e) {
-      // basicLightbox.create(`img`).show()
-      basicLightbox.modalImgTpl(hits).show();
-      console.log(e.target);
-    }
+    // function onGalleryImgClick(e) {
+    //   // basicLightbox.create(`img`).show()
+    //   const visible = basicLightbox.visible();
+    //   // basicLightbox.create(modalImgTpl(hits)).show();
+    //   console.log(e.target);
+    // }
 
     refs.loadMoreBtn.classList.remove('is-hidden');
 
