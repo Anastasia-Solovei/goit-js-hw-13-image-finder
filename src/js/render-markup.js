@@ -1,7 +1,7 @@
 import getRefs from './get-refs.js';
 import API from './apiService';
 import galleryImgTpl from '../templates/gallery-img.hbs';
-// import modalImgTpl from '../templates/modal-img.hbs';
+import modalImgTpl from '../templates/modal-img.hbs';
 
 import * as basicLightbox from 'basiclightbox';
 import * as PNotify from '@pnotify/core/dist/PNotify.js';
@@ -37,6 +37,16 @@ function onSearch(e) {
 function fetchGalleryImages() {
   imgsApiService.fetchImages().then(hits => {
     appendImgsMarkup(hits);
+
+    // пытаюсь добавить lightbox image
+    refs.galleryContainer.addEventListener('click', onGalleryImgClick);
+
+    function onGalleryImgClick(e) {
+      // basicLightbox.create(`img`).show()
+      basicLightbox.modalImgTpl(hits).show();
+      console.log(e.target);
+    }
+
     refs.loadMoreBtn.classList.remove('is-hidden');
 
     if (hits.length < 12) {
@@ -53,12 +63,6 @@ function appendImgsMarkup(hits) {
   }
 
   refs.galleryContainer.insertAdjacentHTML('beforeend', galleryImgTpl(hits));
-
-  // if (hits.length !== 0) {
-  //   const galleryImg = document.querySelector('.gallery__img');
-  //   console.log(galleryImg);
-  //   galleryImg.addEventListener('click', onGalleryImgClick);
-  // }
 
   smoothScrolling();
 }
