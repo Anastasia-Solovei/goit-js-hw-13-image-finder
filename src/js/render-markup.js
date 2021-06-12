@@ -53,9 +53,9 @@ function appendImgsMarkup(hits) {
     });
   }
 
-  if (hits.length < 12) {
-    refs.loadMoreBtn.classList.add('is-hidden');
-  }
+  // if (hits.length < 12) {
+  //   refs.loadMoreBtn.classList.add('is-hidden');
+  // }
 
   refs.galleryContainer.insertAdjacentHTML('beforeend', galleryImgTpl(hits));
 
