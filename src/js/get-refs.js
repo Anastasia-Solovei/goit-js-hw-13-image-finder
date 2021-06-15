@@ -4,5 +4,6 @@ export default function getRefs() {
     galleryContainer: document.querySelector('.js-gallery'),
     loadMoreBtn: document.querySelector('button[data-action="load-more"]'),
     scrollElem: document.querySelector('.scroll-elem'),
+    // container: document.querySelector('.container'),
   };
 }
